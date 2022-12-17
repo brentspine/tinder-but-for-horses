@@ -1,0 +1,28 @@
+html, body {
+    height: 99%;
+}
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+.header,
+.footer {
+    display: flex;
+    justify-content: flex-start;
+    width: -webkit-fill-available;
+    /*background-color: var(--color-standard-card);*/
+    border-radius: 6px;
+    padding: 10px;
+    margin: 0px 5px 3px 5px;
+}
+.poll {
+    max-width: 500px;
+    padding: 0 20px;
+}
+.poll p {
+    font-size: 0.9rem;
+    color: var(--color-standard-grey);
+}
