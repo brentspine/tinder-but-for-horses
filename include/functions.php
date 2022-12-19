@@ -483,4 +483,38 @@ function http_post($url, $body) {
     return $contents;
 }
 
+/**
+ * Runs a prepared statement and returns it
+ * 
+ * @param string    $sql        The SQL code to be prepared and run containing
+ * @param object    $con        DB Connection Object
+ * @param boolean   $bind_params    True, if bind_params should be executed
+ * @param string    $s          The first parameter of the bind_param() function --> "sss"
+ * @param string    ...$params  Parameters passed in the second part of the bind_param() function
+ * 
+ * @return object   The prepared statement
+ */
+function prepared_statement($sql, $con, $bind_params, $s, ...$params) {
+    $ps = $con -> prepare($sql);
+    if($bind_params)
+        $ps -> bind_param($s, ...$params);
+    $ps -> execute();
+    return $ps;
+}
+
+/**
+ * Runs a prepared statement and returns the result
+ * 
+ * @param string    $sql            The SQL code to be prepared and run containing
+ * @param object    $con            DB Connection Object
+ * @param boolean   $bind_params    True, if bind_params should be executed
+ * @param string    $s              The first parameter of the bind_param() function --> "sss"
+ * @param string    ...$params      Parameters passed in the second part of the bind_param() function
+ * 
+ * @return object  The Result
+ */
+function prepared_statement_result($sql, $con, $bind_params, $s, ...$params) {
+    return prepared_statement($sql, $con, $bind_params, $s, ...$params) -> get_result();
+}
+
 ?>

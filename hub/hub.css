@@ -26,3 +26,19 @@ html, body {
     font-size: 0.9rem;
     color: var(--color-standard-grey);
 }
+.selected-users {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /*max-width: 300px;*/
+    padding-top: 5px;
+}
+.selected-users div {
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+    padding: 3px 0;
+}
+.selected-users div img {
+    padding-left: 5px;
+}
