@@ -49,3 +49,12 @@ function print_circle_image(canvasName, imageSrc, x_move, y_move, scale, backgro
         }
     })
 }
+
+function logout() {
+    eraseCookie("session");
+    window.location.href = "/login";
+}
+
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}

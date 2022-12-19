@@ -32,7 +32,7 @@
                     password: password
                 },
                 function(data, status, jqXHR) {
-                    if(!toast_json_answer(jqXHR))
+                    if(!toast_json_answer(data))
                         setTimeout(function() { window.location.href = "/hub" }, 500);
                 })
                 return false;

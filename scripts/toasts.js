@@ -69,7 +69,7 @@ function get_toast(text, color, closable) {
                         '<span>&nbsp;</span>'                                                                           +
                     '</div>'                                                                                            +
                     '<div class="toast-content">'                                                                       +
-                        '&nbsp;' + text                                                                                 +
+                        '<span>' + text + "</span>"                                                                     +
                     '</div>'                                                                                            +       
                 '</div>'                                                                                                +
             '</div>';
@@ -105,8 +105,8 @@ function show_toast_by_data(data) {
     }
 }
 
-function toast_json_answer(jqXHR) {
-    data = JSON.parse(get_ajax_response_text(jqXHR));
+function toast_json_answer(data) {
+    data = JSON.parse(data);
     if(data.hasOwnProperty("error"))
         show_toast(data.message, "var(--color-standard-error-text)", 3000, true);
     else

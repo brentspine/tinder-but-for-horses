@@ -231,6 +231,9 @@ a:hover {
     min-width: 350px;
     background-color: #333;
     border-radius: 2px;
+    word-wrap: break-word;
+    word-break: break-all;
+    display: flex;
 }
 
 .toast-close {
@@ -240,6 +243,9 @@ a:hover {
     font-size: 1.05rem;
     overflow: visible!important; /* KEEP THIS */
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .toast-close.closable {
@@ -255,11 +261,7 @@ a:hover {
     border-radius: 2px;
     font-size: 0.95rem;
     height: 100%;
-}
-
-.toast-close,
-.toast-content {
-    display: inline-block;
+    margin-left: 5px;
 }
 
 .nobutton {

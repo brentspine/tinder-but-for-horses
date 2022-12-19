@@ -17,6 +17,7 @@ html, body {
     border-radius: 6px;
     padding: 10px;
     margin: 0px 5px 3px 5px;
+    flex-wrap: wrap;
 }
 .poll {
     max-width: 500px;
@@ -41,4 +42,28 @@ html, body {
 }
 .selected-users div img {
     padding-left: 5px;
+}
+
+.user-search-suggestions {
+    position: fixed;
+    display: none;
+    background-color: var(--color-search-result-background);
+    color: var(--color-search-result);
+    max-height: 20rem;
+    padding-bottom: 0;
+    z-index: 5;
+    margin-left: 10px;
+    padding: 5px 10px;
+    max-width: 450px;
+    width: -webkit-fill-available;
+    max-height: 152px;
+    overflow-y: auto;
+}
+.user-search-suggestions .suggestion {
+    padding: 5px 0;
+}
+@media(max-width: 380px) {
+    .selected-users {
+        font-size: 14px;
+    }
 }
