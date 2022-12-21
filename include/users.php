@@ -58,4 +58,53 @@ function get_user_by_username($username, $con) {
     return get_row_result($ps -> get_result(), "id");
 }
 
+function get_user_permissions($uid, $con) {
+    $sql = "SELECT permissions.bit, permissions.name FROM roles 
+                LEFT JOIN permissions 
+                ON roles.permissions & permissions.bit 
+                WHERE roles.id = (SELECT role FROM users WHERE id = ?) 
+            UNION 
+            SELECT permissions.bit,permissions.name  
+                FROM users LEFT JOIN permissions ON users.permissions & permissions.bit
+                WHERE users.id = ?";
+    $ps = $con -> prepare($sql);
+    $ps -> bind_param("ss", $uid, $uid);
+    $ps -> execute();
+    return get_multiple_database_entries_result($ps -> get_result(), array("bit", "name"));
+}
+
+function get_user_permissions_bits($uid, $con) {
+    $r = [];
+    foreach(get_user_permissions($uid, $con) as $c)
+        $r[] = $c[0];
+    return $r;
+} 
+
+function get_user_permissions_names($uid, $con) {
+    $r = [];
+    foreach(get_user_permissions($uid, $con) as $c)
+        $r[] = $c[1];
+    return $r;
+} 
+
+function has_user_permission($uid, $name, $con) {
+    $permissions = get_user_permissions_names($uid, $con);
+    $args = explode(".", $name);
+    $args2 = [];
+    for($i = 0; $i < sizeof($args); $i++) {
+        $r = $args[0];
+        for($j = 1; $j <= $i; $j++)
+            $r .= "." . $args[$j];
+        $args2[] = $r . ".*";
+    }
+    foreach($permissions as $c)
+        if(in_array($c, $args2)) return true;
+    return in_array($name, $permissions) || in_array("op", $permissions);
+}
+
+function has_user_permission_bit($uid, $bit, $con) {
+    $permissions = get_user_permissions_bits($uid, $con);
+    return in_array($bit, $permissions) || in_array("1", $permissions);
+}
+
 ?>

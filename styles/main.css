@@ -4,6 +4,9 @@
     background-attachment: fixed;
     background-size: cover;
 }*/
+html, body {
+    height: 99%;
+}
 
 body {
     background-color: var(--color-standard-background);
@@ -352,4 +355,22 @@ input:-internal-autofill-selected {
 form {
     width: 100%;
     height: 100%;
+}
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+.header,
+.footer {
+    display: flex;
+    justify-content: flex-start;
+    width: -webkit-fill-available;
+    /*background-color: var(--color-standard-card);*/
+    border-radius: 6px;
+    padding: 10px;
+    margin: 0px 5px 3px 5px;
+    flex-wrap: wrap;
 }
