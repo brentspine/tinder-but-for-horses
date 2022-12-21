@@ -46,7 +46,7 @@
                 },
                 function (data, textStatus, jqXHR) {
                     toast_json_answer(data);
-                    $("#password").text("Password: "+JSON.parse(data).info.password);
+                    $("#password").text("Passwort: "+JSON.parse(data).info.password);
                     $("#password").show();
                 }
             );
