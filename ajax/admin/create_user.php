@@ -14,7 +14,7 @@ if(!has_user_permission($uid, "add-users", $con)) {
     return;
 }
 
-if(empty_any_params($_POST, "username", "firstname", "lastname")) {
+if(empty_any_params($_POST, "username", "firstname", "lastname", "class")) {
     echo get_json_answer(true, "missing_fields", [], [], $con);
     return;
 }
@@ -22,6 +22,7 @@ if(empty_any_params($_POST, "username", "firstname", "lastname")) {
 $username = $_POST["username"];
 $firstname = $_POST["firstname"];
 $lastname = $_POST["lastname"];
+$class = ucfirst($_POST["class"]);
 $password = bin2hex(random_bytes(10));
 
 if(prepared_statement_result("SELECT * FROM users WHERE username = ?", $con, true, "s", $username) -> num_rows > 0) {
@@ -29,8 +30,18 @@ if(prepared_statement_result("SELECT * FROM users WHERE username = ?", $con, tru
     return;
 }
 
-$sql = "INSERT INTO users (username, first_name, last_name, password, permissions, role) VALUES (?, ?, ?, ?, 0, 0)";
-prepared_statement_result($sql, $con, true, "ssss", $username, $firstname, $lastname, $password);
+if(!str_starts_with($class, "E") && !str_starts_with($class, "Q")) {
+    echo get_json_answer(true, "invalid_class_year", [], [], $con);
+    return;
+}
+
+if(strlen($class) > 3 || strlen($class) < 2) {
+    echo get_json_answer(true, "invalid_class", [], [], $con);
+    return;
+}
+
+$sql = "INSERT INTO users (username, first_name, last_name, class, password, permissions, role) VALUES (?, ?, ?, ?, ?, 0, 0)";
+prepared_statement_result($sql, $con, true, "sssss", $username, $firstname, $lastname, $class, $password);
 echo get_json_answer(false, "created_account", ["password" => $password], [], $con);
 
 ?>

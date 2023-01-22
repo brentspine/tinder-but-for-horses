@@ -26,26 +26,3 @@ $(function () {
         );
     })
 });
-
-function smash(id) {
-    $.post("/ajax/smash/add_smash.php", {user: id},
-        function (data, textStatus, jqXHR) {
-            toast_json_answer(data);
-            data = JSON.parse(data);
-            info = data.info;
-            if(!data.hasOwnProperty("error")) {
-                $(".selected-users").append("<div data-id='"+info[2]+"'><span>"+info[0]+" "+info[1]+"</span>" + "<div class='flex-fill'></div>" + "<img src='/images/trash.svg' alt='Remove' height='18px' class='pointer' onclick='remove_smash(\""+info[2]+"\")'></div>")
-                $("#search-user-input").val("");
-            }
-        }
-    );
-}
-
-function remove_smash(id) {
-    $.post("/ajax/smash/remove_smash.php", {user: id},
-        function (data, textStatus, jqXHR) {
-            toast_json_answer(data);
-            $(".selected-users div[data-id='"+id+"']").remove();
-        }
-    );
-}

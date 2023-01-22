@@ -50,3 +50,49 @@
         font-size: 14px;
     }
 }
+
+.poll {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+.your-list,
+.main-tinder {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+}
+.main-tinder .tinder-name {
+    font-weight: bold;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: flex-end;
+}
+.main-tinder #tinder-age {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-left: 0.8rem;
+    margin-bottom: 0.1rem;
+    opacity: 1;
+    color: var(--color-standard-grey);
+}
+textarea {
+    line-height: 14px;
+}
+.tinder-buttons {
+    display: flex;
+    justify-content: center;
+}
+.tinder-buttons img {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.tinder-bio {
+    margin-left: 0.5rem;
+}

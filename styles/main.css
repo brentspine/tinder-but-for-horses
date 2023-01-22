@@ -135,6 +135,7 @@ a {
     background-color: var(--color-standard-background)
 }
 
+textarea,
 input {
     background-color: var(--color-input-background);
     color-scheme: dark;
@@ -155,6 +156,14 @@ label {
 
 .input-group {
     padding: 0.7rem 0;
+    display: flex;
+}
+.input-group-item {
+    padding-right: .8rem;
+}
+.input-group .label {
+    padding: 0rem 0 0.4rem 0.5rem!important;
+    font-weight: 600;
 }
 
 .submit-button {
@@ -205,6 +214,7 @@ label {
     float: right;
 }
 
+a,
 a:hover {
     color: var(--bs-link-color);
 }
@@ -301,16 +311,14 @@ a:hover {
 .noinput:focus {
     border: none;
 }
+
+textarea:-internal-autofill-selected,
 input:-internal-autofill-selected {
     background-color: var(--color-input-background-dark)!important;
 }
 
 .flex-fill {
     flex: 1 auto;
-}
-
-.input-group {
-    width: 90%;
 }
 
 .input-container {
@@ -336,6 +344,9 @@ input:-internal-autofill-selected {
     cursor: pointer;
 }
 
+.input-container textarea:hover,
+.input-container textarea:focus,
+.input-container textarea,
 .input-container input:hover,
 .input-container input:focus,
 .input-container input {
@@ -343,6 +354,10 @@ input:-internal-autofill-selected {
     padding: 0;
     flex-grow: 1;
     min-width: 0;
+}
+
+.input-container textarea {
+    resize: none;
 }
 
 .submit-button {
@@ -373,4 +388,20 @@ form {
     padding: 10px;
     margin: 0px 5px 3px 5px;
     flex-wrap: wrap;
+}
+@media(max-width: 400px) {
+    .logged-in {
+        display: none;
+    }
+    .header-logo {
+        display: block!important;
+    }
+}
+.header-logo {
+    display: none;
+}
+.header-logo,
+.logged-in {
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
 }

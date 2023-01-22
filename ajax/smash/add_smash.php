@@ -27,6 +27,12 @@ if ($result -> num_rows > 0) {
     return;
 }
 
+$result = prepared_statement_result("SELECT * FROM pass WHERE uid = ? AND target = ?", $con, true, "ss", $uid, $user);
+if ($result -> num_rows > 0) {
+    echo get_json_answer(true, "already_pass_mark_smash", [], [], $con);
+    return;
+}
+
 $result = prepared_statement_result("SELECT * FROM smash WHERE uid = ?", $con, true, "s", $uid);
 if($result -> num_rows >= 5) {
     echo get_json_answer(true, "smash_limit_reached", [], [], $con);

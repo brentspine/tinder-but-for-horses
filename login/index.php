@@ -48,17 +48,21 @@
             <div class="login-image">
                 <img src="/images/bjs-custom.svg" alt="Logo" width="100px">
             </div>
-            <div class="input-group">
-                <div class="input-container">
-                    <img src="/images/user.svg" class="icon" alt="">
-                    <input class="noinput" id="user-input" type="text" placeholder="Nutzername" value="<?php if(!empty($_COOKIE["username"])) echo $_COOKIE["username"]; ?>">
+            <div class="input-group" style="width: 250px">
+                <div class="input-group-item"  style="width: 100%;">
+                    <div class="input-container">
+                        <img src="/images/user.svg" class="icon" alt="">
+                        <input class="noinput" id="user-input" type="text" placeholder="Nutzername" value="<?php if(!empty($_COOKIE["username"])) echo $_COOKIE["username"]; ?>">
+                    </div>
                 </div>
             </div>
-            <div class="input-group">
-                <div class="input-container">
-                    <img src="/images/key.svg" class="icon" alt="">
-                    <input class="noinput" id="password-input" type="password" placeholder="Passwort">
-                    <img src="/images/eye.svg" class="eye" id="toggle-password"> 
+            <div class="input-group" style="width: 250px">
+                <div class="input-group-item">
+                    <div class="input-container">
+                        <img src="/images/key.svg" class="icon" alt="">
+                        <input class="noinput" id="password-input" type="password" placeholder="Passwort">
+                        <img src="/images/eye.svg" class="eye" id="toggle-password"> 
+                    </div>
                 </div>
             </div>
             <button class="submit-button">Anmelden</button>
