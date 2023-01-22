@@ -28,9 +28,8 @@ CREATE TABLE IF NOT EXISTS `json_codes` (
   KEY `error_id` (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Exportiere Daten aus Tabelle school_tinder.json_codes: ~30 rows (ungefähr)
-DELETE FROM `json_codes`;
-INSERT INTO `json_codes` (`id`, `code`, `status`, `message`) VALUES
+-- Exportiere Daten aus Tabelle school_tinder.json_codes: ~43 rows (ungefähr)
+REPLACE INTO `json_codes` (`id`, `code`, `status`, `message`) VALUES
 	(-1, 'unknown_error', 500, 'Es ist ein unbekannter Fehler aufgetreten'),
 	(0, 'missing_fields', 400, 'Bitte alle Felder angeben'),
 	(1, 'wrong_login', 403, 'Falscher Nutzername oder Passwort'),
@@ -60,7 +59,28 @@ INSERT INTO `json_codes` (`id`, `code`, `status`, `message`) VALUES
 	(25, 'not_enough_permissions', 403, 'Du hast nicht genügend Berechtigungen'),
 	(26, 'created_account', 200, 'Account wurde erstellt'),
 	(27, 'username_taken', 400, 'Es gibt bereits einen Account mit diesem Namen'),
-	(28, 'changed_phase', 200, 'Phase wurde geändert');
+	(28, 'changed_phase', 200, 'Phase wurde geändert'),
+	(29, 'bio_updated', 200, 'Deine Bio wurde geändert'),
+	(30, 'bio_to_long', 200, 'Deine Bio kann nur maximal %length% Zeichen lang sein'),
+	(31, 'bio_to_long_lines', 200, 'Deine Bio kann nur maximal %length% Zeilen lang sein'),
+	(32, 'cant_mark_yourself_as_pass', 400, 'Du musst nicht angeben, dass du pass bist. Das weiß eh jeder'),
+	(33, 'already_pass', 400, 'Du hast diese Person bereits als Pass makiert'),
+	(34, 'already_smash_mark_pass', 400, 'Lösche diese Person zuerst aus deiner Smash Liste'),
+	(35, 'added_pass', 200, 'Erfolgreich als PASS markiert'),
+	(36, 'already_pass_mark_smash', 400, 'Du hast diese Person bereits als PASS markiert'),
+	(37, 'account_updated', 200, 'Deine Account Einstellungen wurden geändert'),
+	(38, 'invalid_class_year', 400, 'Deine Klasse muss entweder mit "E" oder "Q" beginnen'),
+	(39, 'invalid_class', 400, 'Die Klasse muss in folgendem Format angegeben werden: "Ec" / "Q1c"'),
+	(40, 'not_marked_as_pass', 400, 'Du hast diese Person nie als Pass markiert'),
+	(42, 'removed_pass', 200, 'Zweite Chance it is');
+
+-- Exportiere Struktur von Tabelle school_tinder.pass
+CREATE TABLE IF NOT EXISTS `pass` (
+  `uid` int DEFAULT NULL,
+  `target` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Exportiere Daten aus Tabelle school_tinder.pass: ~0 rows (ungefähr)
 
 -- Exportiere Struktur von Tabelle school_tinder.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
@@ -70,8 +90,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Exportiere Daten aus Tabelle school_tinder.permissions: ~4 rows (ungefähr)
-DELETE FROM `permissions`;
-INSERT INTO `permissions` (`bit`, `name`) VALUES
+REPLACE INTO `permissions` (`bit`, `name`) VALUES
 	(1, 'add-users'),
 	(2, 'change-phase'),
 	(4, 'reset-password'),
@@ -85,8 +104,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Exportiere Daten aus Tabelle school_tinder.roles: ~1 rows (ungefähr)
-DELETE FROM `roles`;
-INSERT INTO `roles` (`id`, `name`, `permissions`) VALUES
+REPLACE INTO `roles` (`id`, `name`, `permissions`) VALUES
 	(1, 'admin', 15);
 
 -- Exportiere Struktur von Tabelle school_tinder.sessions
@@ -96,7 +114,6 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Exportiere Daten aus Tabelle school_tinder.sessions: ~0 rows (ungefähr)
-DELETE FROM `sessions`;
 
 -- Exportiere Struktur von Tabelle school_tinder.settings
 CREATE TABLE IF NOT EXISTS `settings` (
@@ -106,9 +123,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Exportiere Daten aus Tabelle school_tinder.settings: ~1 rows (ungefähr)
-DELETE FROM `settings`;
-INSERT INTO `settings` (`id`, `name`, `val`) VALUES
-	(1, 'phase', 'results');
+REPLACE INTO `settings` (`id`, `name`, `val`) VALUES
+	(1, 'phase', 'add_users');
 
 -- Exportiere Struktur von Tabelle school_tinder.smash
 CREATE TABLE IF NOT EXISTS `smash` (
@@ -117,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `smash` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Exportiere Daten aus Tabelle school_tinder.smash: ~0 rows (ungefähr)
-DELETE FROM `smash`;
 
 -- Exportiere Struktur von Tabelle school_tinder.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -125,16 +140,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(24) DEFAULT NULL,
   `first_name` varchar(30) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
+  `bio` text,
+  `class` varchar(10) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `permissions` smallint DEFAULT NULL,
   `role` smallint DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Exportiere Daten aus Tabelle school_tinder.users: ~1 rows (ungefähr)
-DELETE FROM `users`;
-INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `permissions`, `role`) VALUES
-	(1, 'admin', '', '', '1cf66a81a124fbbc8ad4', 0, 1);
+REPLACE INTO `users` (`id`, `username`, `first_name`, `last_name`, `bio`, `class`, `password`, `permissions`, `role`) VALUES
+	(1, 'admin', '', '', '', NULL, '1cf66a81a124fbbc8ad4', 0, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

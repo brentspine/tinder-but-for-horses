@@ -19,7 +19,7 @@
         current_display = data;
         console.log(data);
         if(!data.hasOwnProperty("id")) {
-            $("#main-tinder").html("<h2>Du bist fertig</h2><p>Du hast das Hansenbergtinder abgeschlossen</p>")
+            $("#main-tinder").html("<h2>Du bist fertig</h2><p>Du hast das Hansenbergtinder abgeschlossen<br>Gebe dem <a target='_blank' href='https://github.com/brentspine/school_tinder'>Repository</a> gerne einen Stern und <a target='_blank' href='https://github.com/brentspine'>folge mir auf GitHub</a> :)</p>")
         }
         $("#tinder-name").text(data["first_name"] + " " + data["last_name"]);
         $("#tinder-name").append('<span class="name-notice" id="tinder-age"></span>')
@@ -37,12 +37,6 @@
             function (data, textStatus, jqXHR) {
                 toast_json_answer(data);
                 get_suggestion();
-                /*data = JSON.parse(data);
-                info = data.info;
-                if(!data.hasOwnProperty("error")) {
-                    $(".selected-users").append("<div data-id='"+info[2]+"'><span>"+info[0]+" "+info[1]+"</span>" + "<div class='flex-fill'></div>" + "<img src='/images/trash.svg' alt='Remove' height='18px' class='pointer' onclick='remove_smash(\""+info[2]+"\")'></div>")
-                    $("#search-user-input").val("");
-                }*/
             }
         );
     }
