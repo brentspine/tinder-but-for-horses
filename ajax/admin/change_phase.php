@@ -27,6 +27,6 @@ if(prepared_statement_result("SELECT * FROM settings WHERE name = 'phase' AND va
 }
 
 prepared_statement_result("UPDATE settings SET val = ? WHERE name = 'phase'", $con, true, "s", $phase);
-echo get_json_answer(false, "changed_phase", [], [], $con);
+echo get_json_answer_by_id(false, 41, [], [], $con);
 
 ?>

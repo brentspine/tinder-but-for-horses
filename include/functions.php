@@ -376,7 +376,7 @@ function clear_cookie_path($name, $path) {
   * @return array JSON Answer
   */
 function get_json_answer($error, $code, $info, $replacements, $con) {
-    $result = $con -> query("SELECT * FROM json_codes WHERE code = '" .$code. "'");
+    $result = prepared_statement_result("SELECT * FROM json_codes WHERE code = ?", $con, true, "s", $code);
     while($row = $result->fetch_assoc()) {
         return get_custom_json_answer($error, $code, $row["status"], $row["message"], $info, $replacements);
     }
@@ -395,7 +395,7 @@ function get_json_answer($error, $code, $info, $replacements, $con) {
   * @return array JSON Answer
   */
 function get_json_answer_by_id($error, $id, $info, $replacements, $con) {
-    $result = $con -> query("SELECT * FROM json_codes WHERE id = '" .$id. "'");
+    $result = prepared_statement_result("SELECT * FROM json_codes WHERE id = ?", $con, true, "s", $id);
     while($row = $result->fetch_assoc()) {
         return get_custom_json_answer($error, $row["code"], $row["status"], $row["message"], $info, $replacements);
     }
