@@ -30,11 +30,12 @@ if($result -> num_rows <= 0) {
 // Password Ok, check if session is set
 if(isset($_COOKIE["session"])) {
     $uid = get_user_by_session($con);
-    $sql = "SELECT * FROM sessions WHERE uid = '" .$uid. "' AND token = '".$_COOKIE["session"]."'";
-    if(get_amount_of_entries_sql($sql, $con) > 0) {
+    $result = prepared_statement_result("SELECT * FROM sessions WHERE uid = ? AND token = ?", $con, true, "ss", $uid, $_COOKIE["session"]);
+    if($result -> num_rows > 0) {
+
         // Set the username cookie
-        $sql = "SELECT * FROM users WHERE id = '".$uid."'";
-        setcookie("username", get_row($sql, "username", $con), time() + 60*60*24*30, "/"); 
+        $result = prepared_statement_result("SELECT * FROM users WHERE id = ?", $con, true, "s", $uid);
+        setcookie("username", get_row_result($result, "username", $con), time() + 60*60*24*30, "/"); 
 
         echo get_json_answer(false, "login_successfull_redirect", [], [], $con);
         return;
@@ -45,22 +46,20 @@ if(isset($_COOKIE["session"])) {
 $uid = get_user_by_username($username, $con);
 
 // Clear old session keys
-$sql = "DELETE FROM sessions WHERE uid='" .$uid. "'";
-$con -> query($sql);
+prepared_statement("DELETE FROM sessions WHERE uid = ?", $con, true, "s", $uid);
 
 // Create new session token
 $token = bin2hex(random_bytes(42));
 
 // Insert token into database 
-$sql = "INSERT INTO sessions (uid, token) VALUES ('".$uid."', '".$token. "')";
-$con -> query($sql);
+prepared_statement("INSERT INTO sessions (uid, token) VALUES (?, ?)", $con, true, "ss", $uid, $token);
 
 // Set the session cookie (30d)
 setcookie("session", $token, time() + 60*60*24*30, "/");  
 
 // Set the username cookie
-$sql = "SELECT * FROM users WHERE id = '".$uid."'";
-setcookie("username", get_row($sql, "username", $con), time() + 60*60*24*30, "/"); 
+$result = prepared_statement_result("SELECT * FROM users WHERE id = ?", $con, true, "s", $uid);
+setcookie("username", get_row_result($result, "username", $con), time() + 60*60*24*30, "/"); 
 
 echo get_json_answer(false, "login_successfull_redirect", [], [], $con);
 

@@ -7,18 +7,15 @@ ob_end_clean();
 $uid = get_user_by_session($con);
 
 function does_user_exist($name, $con) {
-    $sql = "SELECT * FROM users WHERE username = '".$name."' OR mail = '".$name."'";
-    if(get_amount_of_entries_sql($sql, $con) > 0)
+    $result = prepared_statement_result("SELECT * FROM users WHERE username = ? OR mail = ?", $con, true, "ss", $name, $name);
+    if($result -> num_rows > 0)
         return true;
 
     return false;
 }
 
-function get_user_id($name, $con) {
-    //if(!does_user_exist($name, $con)) return "User not found";
-    
-    $sql = "SELECT * FROM users WHERE username = '".$name."' OR mail = '".$name."'";
-    $result = $con -> query($sql);
+function get_user_id($name, $con) {    
+    $result = prepared_statement_result("SELECT * FROM users WHERE username = ? OR mail = ?", $con, true, $name, $name);
     if($result -> num_rows > 0)
         return get_database_entry_result($result, "id");
 
@@ -27,8 +24,8 @@ function get_user_id($name, $con) {
 
 function is_session_available($uid, $con) {
     if(isset($_COOKIE["session"])) {
-        $sql = "SELECT * FROM sessions WHERE uid = '" .$uid. "' AND token = '".$_COOKIE["session"]."'";
-        if(get_amount_of_entries_sql($sql, $con) > 0)
+        $result = prepared_statement_result("SELECT * FROM sessions WHERE uid = ? AND token = ?", $con, true, "ss", $uid, $_COOKIE["session"]);
+        if($result -> num_rows > 0)
             return true;
         setcookie("session", "");
     }
@@ -41,14 +38,8 @@ function get_session() {
 
 function get_user_by_session($con) {
     if(!isset($_COOKIE["session"])) return -1;
-    $sql = "SELECT * FROM sessions WHERE token = '".$_COOKIE["session"]."'";
-    $result = $con -> query($sql);
+    $result = prepared_statement_result("SELECT * FROM sessions WHERE token = ?", $con, true, "s", $_COOKIE["session"]);
     return get_database_entry_result($result, "uid");
-}
-
-function get_user_entry($id, $column, $con) {
-    $sql = "SELECT * FROM users WHERE id = '" .$id. "'";
-    return get_row($sql, $column, $con);
 }
 
 function get_user_by_username($username, $con) {

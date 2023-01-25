@@ -31,8 +31,8 @@ function is_mail_valid($mail, $uid, $con) {
         return false;
     }
 
-    $sql = "SELECT * FROM users WHERE mail = '" .$mail. "' AND (NOT id = '".$uid."')";
-    if(get_amount_of_entries_sql($sql, $con) >= 1) {
+    $result = prepared_statement_result("SELECT * FROM users WHERE mail = ? AND (NOT id = ?)", $con, true, "ss", $mail, $uid);
+    if($result -> num_rows >= 1) {
         echo get_json_answer(true, "mail_taken", [], [], $con);
         return false;
     }
@@ -61,10 +61,12 @@ function empty_any(...$params) {
   *
   * @return boolean True if any of the values is set
   */
-  function isset_any(...$params) {
-    foreach($params as $c) {
-        if(isset($c))
+function isset_any(...$params)
+{
+    foreach ($params as $c) {
+        if (isset($c)) {
             return true;
+        }
     }
     return false;
 }
@@ -136,19 +138,6 @@ function strip_param_from_url($url, $param) {
     return $base_url.'?'.$new_query;            // Finally url is ready
 }
 
-
-/** 
- * @param string    $sql    The SQL to be counted from
- * @param object    $con    DB Connection Object
- * 
- * @return int Amount of entries for the sql selection
- */
-function get_amount_of_entries_sql($sql, $con) {
-    $result = $con -> query($sql);
-    return $result -> num_rows;
-}
-
-
 /** 
  * @return string The current URL of the webpage
  */
@@ -198,21 +187,6 @@ function get_url_without_parameter($url, $hidden) {
 }
 
 /**
- * Executes the given sql and returns the first row from the result
- * 
- * @param string    $sql    SQL Query
- * @param string    $row    The Row name
- * @param object    $con    DB Connection
- * 
- * @return object The Row
- */
-function get_row($sql, $row, $con) {
-    $result = $con->query($sql);
-    return get_row_result($result, $row);
-}
-
-
-/**
  * Gets the first row from the result
  * 
  * @param object    $result     The result to be taken from
@@ -230,28 +204,9 @@ function get_row_result($result, $row) {
 }
 
 /** 
- * Returns the $column from the first row of the SELECT query
  * 
- * @param string    $sql        SQL SELECT query
+ * @param object    $result     Result Set
  * @param string    $column     Column to return
- * @param object    $con        Database connection
- * 
- * @return object   The value in the first row of the requested column
- */
-function get_database_entry($sql, $column, $con) {
-    $result = $con->query($sql);
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            return $row[$column];
-        }
-    } else 
-        return -1;
-}
-
-/** 
- * 
- * @param string    $sql    SQL SELECT query
- * @param string    $column Column to return
  * 
  * @return string   The value of the column in the first row from the resultset
  */
@@ -262,27 +217,6 @@ function get_database_entry_result($result, $column) {
         }
     }
    return -1;
-}
-
-/** 
- * Returns all columns for the query
- * 
- * @param string    $sql        SQL SELECT query
- * @param string    $column     Column to return
- * @param object    $con        Database connection
- * 
- * @return array    All values for the requetsed column affected in the SELECT query
- */
-function get_database_entries($sql, $column, $con) {
-    $r = [];
-    $result = $con->query($sql);
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            $r[] = $row[$column];
-        }
-    } else 
-        return [];
-    return $r;
 }
 
 /** 
