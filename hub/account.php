@@ -11,7 +11,6 @@
 <script>
     function on_account_settings_save(e) {
         var bio = $("#bio-update-input").val();   
-        //var lines = bio.split(/\r|\r\n|\n/).length;
         $.post("/ajax/account/change_account.php", {bio: bio, class: "1"},
             function (data, textStatus, jqXHR) {
                 toast_json_answer(data);
@@ -31,7 +30,7 @@
                 </div>
                 <div class="input-container">
                     <img src="/images/user.svg" class="icon" alt="O">
-                    <input style="cursor: not-allowed;" class="noinput" name="username" type="text" placeholder="Nutzername" readonly value="<?php echo get_database_entry_result(prepared_statement_result("SELECT username FROM users WHERE id = ?", $con, true, "s", $uid), "username")?>">
+                    <input style="cursor: not-allowed;" class="noinput" name="username" type="text" placeholder="Nutzername" readonly value="<?php echo htmlspecialchars(get_database_entry_result(prepared_statement_result("SELECT username FROM users WHERE id = ?", $con, true, "s", $uid), "username")) ?>">
                 </div>
             </div>
         </div>
@@ -42,7 +41,7 @@
                 </div>
                 <div class="input-container">
                     <img src="/images/user.svg" class="icon" alt="O">
-                    <input style="cursor: not-allowed;" class="noinput" name="firstname" type="text" placeholder="Vorname" readonly value="<?php echo get_database_entry_result(prepared_statement_result("SELECT first_name FROM users WHERE id = ?", $con, true, "s", $uid), "first_name")?>">
+                    <input style="cursor: not-allowed;" class="noinput" name="firstname" type="text" placeholder="Vorname" readonly value="<?php echo htmlspecialchars(get_database_entry_result(prepared_statement_result("SELECT first_name FROM users WHERE id = ?", $con, true, "s", $uid), "first_name")) ?>">
                 </div>
             </div>
 
@@ -52,7 +51,7 @@
                 </div>
                 <div class="input-container">
                     <img src="/images/user.svg" class="icon" alt="O">
-                    <input style="cursor: not-allowed;" class="noinput" name="lastname" type="text" placeholder="Nachname" readonly value="<?php echo get_database_entry_result(prepared_statement_result("SELECT last_name FROM users WHERE id = ?", $con, true, "s", $uid), "last_name")?>">
+                    <input style="cursor: not-allowed;" class="noinput" name="lastname" type="text" placeholder="Nachname" readonly value="<?php echo htmlspecialchars(get_database_entry_result(prepared_statement_result("SELECT last_name FROM users WHERE id = ?", $con, true, "s", $uid), "last_name")) ?>">
                 </div>
             </div>
         </div>
@@ -64,7 +63,7 @@
                 </div>
                 <div class="input-container" style="height: 50px">
                     <img src="/images/edit.svg" class="icon" alt="O">
-                    <textarea id="bio-update-input" class="noinput" name="bio" placeholder="Ein kleines Intro, wer du bist" autofocus maxlength="256" wrap=""><?php echo get_database_entry_result(prepared_statement_result("SELECT bio FROM users WHERE id = ?", $con, true, "s", $uid), "bio")?></textarea>
+                    <textarea id="bio-update-input" class="noinput" name="bio" placeholder="Ein kleines Intro, wer du bist" autofocus maxlength="256" wrap=""><?php echo htmlspecialchars(get_database_entry_result(prepared_statement_result("SELECT bio FROM users WHERE id = ?", $con, true, "s", $uid), "bio")) ?></textarea>
                 </div>
             </div>
         </div>

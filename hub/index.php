@@ -12,7 +12,7 @@
     <div class="main">
         <div class="header">
             <div class="logged-in">
-                Eingeloggt als: <?php $name = get_database_entry_result(prepared_statement_result('SELECT CONCAT(CONCAT(first_name, " "), last_name) AS full_name FROM users WHERE id = ?', $con, true, "s", $uid), "full_name"); echo strlen($name) > 3 ? $name : get_database_entry_result(prepared_statement_result("SELECT username FROM users WHERE id = ?", $con, true, "s", $uid), "username")?>
+                Eingeloggt als: <?php $name = get_database_entry_result(prepared_statement_result('SELECT CONCAT(CONCAT(first_name, " "), last_name) AS full_name FROM users WHERE id = ?', $con, true, "s", $uid), "full_name"); echo htmlspecialchars(strlen($name) > 3 ? $name : get_database_entry_result(prepared_statement_result("SELECT username FROM users WHERE id = ?", $con, true, "s", $uid), "username")) ?>
             </div>
             <div class="header-logo">
                 <img src="/images/logo.png" alt="Logo"> 

@@ -7,7 +7,7 @@
             <?php 
                 $matches = get_multiple_database_entries_result(prepared_statement_result("SELECT T1.uid, T1.target, T3.first_name, T3.last_name FROM smash T1, smash T2, users T3 WHERE T1.uid = T2.target AND T2.uid = T1.target AND T3.id = T1.target AND T1.uid = ?", $con, true, "s", $uid), ["target", "first_name", "last_name"]);
                 foreach($matches as $c) {
-                    echo "<li>".$c[1]." ".$c[2]."</li>";
+                    echo "<li>".htmlspecialchars($c[1])." ".htmlspecialchars($c[2])."</li>";
                 }
             ?>
         </ul>

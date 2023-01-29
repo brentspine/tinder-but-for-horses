@@ -52,7 +52,7 @@
                 <div class="input-group-item"  style="width: 100%;">
                     <div class="input-container">
                         <img src="/images/user.svg" class="icon" alt="">
-                        <input class="noinput" id="user-input" type="text" placeholder="Nutzername" value="<?php if(!empty($_COOKIE["username"])) echo $_COOKIE["username"]; ?>">
+                        <input class="noinput" id="user-input" type="text" placeholder="Nutzername" value="<?php if(!empty($_COOKIE["username"])) echo htmlspecialchars($_COOKIE["username"]); ?>">
                     </div>
                 </div>
             </div>
