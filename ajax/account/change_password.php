@@ -33,6 +33,13 @@ if($new_password != $confirm_password) {
     return;
 }*/
 
+$has_welcome = get_database_entry_result(prepared_statement_result("SELECT has_welcome FROM users WHERE id = ?", $con, true, "s", $uid), "has_welcome");
+if($has_welcome == "1") {
+    echo get_json_answer(true, "not_allowed", [], [], $con);
+    return;
+}
+
+
 if(strlen($new_password) < 8) {
     echo get_json_answer(true, "field_to_short", [], ["%field%", "Passwort", "%length%", "8"], $con);
     return;

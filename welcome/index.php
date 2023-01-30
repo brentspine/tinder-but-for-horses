@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="/hub/hub.css">
     <title>Wilkommen</title>
 
+    <?php
+
+    $has_welcome = get_database_entry_result(prepared_statement_result("SELECT has_welcome FROM users WHERE id = ?", $con, true, "s", $uid), "has_welcome");
+    if($has_welcome == "1") {
+        echo "<script>window.location.href = '/hub'</script>";
+        return;
+    }
+
+    ?>
     <script>
         $(document).ready(function () {
             type_text = "Hansenberg Tinder"
@@ -132,7 +141,7 @@
         </div>
         <div id="welcome-2" style="display: none; transition: 5s; justify-content: center; align-items: center;">
             <div class="flex-fill"></div>
-            <video id="tutorial-video" src="/images/Tinder_Tutorial.mp4" style="max-height: 100vh; max-width: 100vw;"></video>
+            <video id="tutorial-video" src="/images/Tinder_Tutorial.mp4?ngsw-bypass=true " style="max-height: 100vh; max-width: 100vw;" type="video/mp4" muted playsInline></video>
             <button id="next-2" class="submit-button" style="height: 50px; width: 50px; border-radius: 50px;">➜</button>
         </div>
         <div id="welcome-3" style="display: none;">
