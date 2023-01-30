@@ -7,6 +7,15 @@
     <script src="/hub/hub.js"></script>
     <title>Hub</title>
 </head>
+<?php
+
+$has_welcome = get_database_entry_result(prepared_statement_result("SELECT has_welcome FROM users WHERE id = ?", $con, true, "s", $uid), "has_welcome");
+if($has_welcome == "0") {
+    echo "<script>window.location.href = '/welcome'</script>";
+    return;
+}
+
+?>
 <body>
 
     <div class="main">

@@ -30,7 +30,7 @@ if(prepared_statement_result("SELECT * FROM users WHERE username = ?", $con, tru
     return;
 }
 
-if(!str_starts_with($class, "E") && !str_starts_with($class, "Q")) {
+/*if(!str_starts_with($class, "E") && !str_starts_with($class, "Q")) {
     echo get_json_answer(true, "invalid_class_year", [], [], $con);
     return;
 }
@@ -38,7 +38,7 @@ if(!str_starts_with($class, "E") && !str_starts_with($class, "Q")) {
 if(strlen($class) > 3 || strlen($class) < 2) {
     echo get_json_answer(true, "invalid_class", [], [], $con);
     return;
-}
+}*/
 
 $sql = "INSERT INTO users (username, first_name, last_name, class, password, permissions, role) VALUES (?, ?, ?, ?, ?, 0, 0)";
 prepared_statement_result($sql, $con, true, "sssss", $username, $firstname, $lastname, $class, $password);

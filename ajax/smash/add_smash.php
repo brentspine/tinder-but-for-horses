@@ -34,7 +34,7 @@ if ($result -> num_rows > 0) {
 }
 
 $result = prepared_statement_result("SELECT * FROM smash WHERE uid = ?", $con, true, "s", $uid);
-if($result -> num_rows >= 5) {
+if($result -> num_rows >= 15) {
     echo get_json_answer(true, "smash_limit_reached", [], [], $con);
     return;
 }
