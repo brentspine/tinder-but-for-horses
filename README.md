@@ -39,7 +39,7 @@ Privately hostable tinder for small groups like schools
   1. Go to the database setup on your hosting website
   2. Go to the page onwhich you can run SQL Code (e.g. phpMyAdmin)
   3. Copy and paste the content of the [database.sql](https://github.com/brentspine/school_tinder/blob/main/database.sql) file and run the code
-  4. Enter the SQL connection details in the [connection.php](https://github.com/brentspine/school_tinder/blob/main/database.sql) file
+  4. Enter the SQL connection details in the [connection.php](https://github.com/brentspine/school_tinder/blob/main/include/connection.php) file
   5. Customize the messages displayed in the `json_codes` table
   6. Change the admin password in the `users` table
   
