@@ -8,6 +8,7 @@ Privately hostable tinder for small groups like schools
  - 3 Different Phases: Add Users, Tinder and Results
  - Admins can change phases and add users in the dashboard
  - Custom welcome page explaining everything for new users
+ - [Tutorial Video](https://github.com/brentspine/school_tinder/blob/main/images/Tinder_Tutorial.mp4)
  
  ## Phases
  
