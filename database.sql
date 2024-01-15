@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Exportiere Daten aus Tabelle school_tinder.users: ~1 rows (ungefähr)
 REPLACE INTO `users` (`id`, `username`, `first_name`, `last_name`, `bio`, `class`, `password`, `permissions`, `role`) VALUES
-	(1, 'admin', '', '', '', NULL, '1cf66a81a124fbbc8ad4', 0, 1);
+	(1, 'admin', '', '', '', NULL, 'CHANGE_ME_PLEASE', 0, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
