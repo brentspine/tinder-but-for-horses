@@ -19,7 +19,7 @@
         current_display = data;
         console.log(data);
         if(!data.hasOwnProperty("id")) {
-            $("#main-tinder").html("<h2>Du bist fertig</h2><p>Du hast das Hansenbergtinder abgeschlossen<br>Gebe dem <a target='_blank' href='https://github.com/brentspine/school_tinder'>Repository</a> gerne einen Stern und <a target='_blank' href='https://github.com/brentspine'>folge mir auf GitHub</a> :)</p>")
+            $("#main-tinder").html("<h2>Du bist fertig</h2><p>Du hast das Hansenbergtinder abgeschlossen<br>Gebe dem <a target='_blank' href='https://github.com/brentspine/school_tinder'>Repository</a> gerne einen Stern und <a target='_blank' href='https://instagram.com/brentspine'>folge mir auf Insta</a> :)</p>")
         }
         $("#tinder-name").text(data["first_name"] + " " + data["last_name"]);
         $("#tinder-name").append('<span class="name-notice" id="tinder-age"></span>')
