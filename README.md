@@ -1,4 +1,4 @@
-# school_tinder
+# Tinder But For Horses
 Privately hostable tinder for small groups like schools
 
 ## Features
@@ -8,7 +8,7 @@ Privately hostable tinder for small groups like schools
  - 3 Different Phases: Add Users, Tinder and Results
  - Admins can change phases and add users in the dashboard
  - Custom welcome page explaining everything for new users
- - [Tutorial Video](https://github.com/brentspine/school_tinder/blob/main/images/Tinder_Tutorial.mp4)
+ - [Tutorial Video](https://github.com/brentspine/tinder-but-for-horses/blob/main/images/Tinder_Tutorial.mp4)
  
  ## Phases
  
@@ -28,7 +28,7 @@ Privately hostable tinder for small groups like schools
  
  1. Find a hosting service, that supports MySQL and PHP. The server doesn't have to be highend.
  2. Ensure you have installed git on your PC
- 3. Afer you have purchased the webspace clone the GitHub project to your desktop by opening a command prompt there and running `git clone https://github.com/brentspine/school_tinder`
+ 3. Afer you have purchased the webspace clone the GitHub project to your desktop by opening a command prompt there and running `git clone https://github.com/brentspine/tinder-but-for-horses`
  4. Make sure your webpage is accessible in the first place
  5. Connect to your server via FTP, you should have received the login details for that. Otherwise there should be an option on your dashboard on the providers website.
  6. Move the contents of the generated folder from your desktop to the path dedicated to the webpage on the server via FTP.
@@ -38,8 +38,8 @@ Privately hostable tinder for small groups like schools
  Here is what you have to do:
   1. Go to the database setup on your hosting website
   2. Go to the page onwhich you can run SQL Code (e.g. phpMyAdmin)
-  3. Copy and paste the content of the [database.sql](https://github.com/brentspine/school_tinder/blob/main/database.sql) file and run the code
-  4. Enter the SQL connection details in the [connection.php](https://github.com/brentspine/school_tinder/blob/main/include/connection.php) file
+  3. Copy and paste the content of the [database.sql](https://github.com/brentspine/tinder-but-for-horses/blob/main/database.sql) file and run the code
+  4. Enter the SQL connection details in the [connection.php](https://github.com/brentspine/tinder-but-for-horses/blob/main/include/connection.php) file
   5. Customize the messages displayed in the `json_codes` table
   6. Change the admin password in the `users` table
   
