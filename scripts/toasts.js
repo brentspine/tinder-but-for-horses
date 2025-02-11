@@ -1,3 +1,8 @@
+/*
+ Snackbar Free to use with credit
+ Ⓒ Brentspine 2021 - 2025
+*/
+
 let active_toasts = [];
 var toasts_displayed = 0;
 
