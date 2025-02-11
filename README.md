@@ -1,5 +1,5 @@
 # Tinder But For Horses
-Privately hostable tinder for small groups like schools
+Privately hostable tinder for small groups
 
 ## Features
  - Tinder like smash or pass
